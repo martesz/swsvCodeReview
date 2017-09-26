@@ -121,7 +121,7 @@ public class JSONParser {
 					switch(token.type){
 					case Yytoken.TYPE_VALUE:
 						status=S_IN_FINISHED_VALUE;
-						statusStack.addFirst(new Integer(status));
+						statusStack.addFirst(Integer.valueOf(status));
 						valueStack.addFirst(token.value);
 						break;
 					case Yytoken.TYPE_LEFT_BRACE:
