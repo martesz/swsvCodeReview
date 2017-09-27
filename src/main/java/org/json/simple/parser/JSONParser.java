@@ -10,6 +10,7 @@ import java.io.StringReader;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Deque;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -110,8 +111,8 @@ public class JSONParser {
 	 */
 	public Object parse(Reader in, ContainerFactory containerFactory) throws IOException, ParseException{
 		reset(in);
-		LinkedList statusStack = new LinkedList();
-		LinkedList valueStack = new LinkedList();
+		Deque<Integer> statusStack = new LinkedList<>();
+		Deque<Integer> valueStack = new LinkedList<>();
 		
 		try{
 			do{
@@ -121,7 +122,7 @@ public class JSONParser {
 					switch(token.type){
 					case Yytoken.TYPE_VALUE:
 						status=S_IN_FINISHED_VALUE;
-						statusStack.addFirst(new Integer(status));
+						statusStack.addFirst(status);
 						valueStack.addFirst(token.value);
 						break;
 					case Yytoken.TYPE_LEFT_BRACE:
